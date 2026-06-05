@@ -33,6 +33,8 @@ Windows Filtering Platform (WFP) kullanarak uygulama bazlı internet erişimini 
 3. Arama kutusuna **"Kernel Mode Driver Empty (KMDF)"** yaz ve seç
 4. `Main.c` dosyasını projeye ekle
 
+> **Şablon listede gözükmüyorsa:** Visual Studio Installer'ı aç, **"C++ ile masaüstü geliştirme"** iş yükünü ve Bağımsız Bileşenler sekmesinden **"MSVC v143 - VS 2022 C++ x64/x86 Spectre risk azaltılmış kitaplıklar (En yeni)"** ile **"Windows Sürücü Kiti"** bileşenlerini yükle.
+
 ---
 
 ### 2. NuGet Paketlerini Yükle
