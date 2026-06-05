@@ -102,7 +102,7 @@ Sistemi kalıcı olarak değiştirmek istemeyenler için:
 2. Sorun Gider → Gelişmiş Seçenekler → Başlangıç Ayarları
 3. **"Sürücü imza zorlamasını devre dışı bırak"** seçeneğini seç
 
-> Bu yöntem yalnızca o oturum için geçerlidir, yeniden başlatınca eski haline döner.
+> Bu yöntem yalnızca o oturum için geçerlidir.
 
 ---
 
@@ -151,6 +151,12 @@ Uygulama, `\\Device\\SaplayiciDevice` sembolik bağlantısı üzerinden sürüc�
 
 ---
 
+## Sürümler
+
+Derlenmiş hazır dosyalar (`.exe`, `.sys`, `.inf`, `.cat`) için [Releases](../../releases) sayfasına bakabilirsiniz.
+
+---
+
 ## Notlar
 
 - Test İmzalama Modu yalnızca geliştirme amaçlıdır. Üretim ortamı için imzalı sürücü önerilir.
@@ -158,6 +164,7 @@ Uygulama, `\\Device\\SaplayiciDevice` sembolik bağlantısı üzerinden sürüc�
 - Maksimum 1024 uygulama filtresi desteklenir (`MAX_FILTERS`).
 
 ---
+
 
 ## Lisans
 
