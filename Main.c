@@ -233,6 +233,36 @@ void StartSaplayici()
 
 	PAPPID_NODE node = g_AppIdList;
 
+
+	while (node)
+		{
+			//ipv4conn
+			NTSTATUS status = AddFilterIPv4_AppId(node->AppIdBlob);
+
+			if (NT_SUCCESS(status))
+			{
+			DbgPrint("ipv4 conn eklendi\n");
+			}
+			else {
+			DbgPrint("ipv4 conn basarisiz: 0x%X\n", status);
+			}
+			
+			//ipv6conn 
+			NTSTATUS status = AddfilteripV6_AppId(node->AppIdBlob);
+
+			if (NT_SUCCESS(status)) {
+
+			DbgPrint("ipv6 conn eklendi \n");
+			}
+			else {
+			DbgPrint("ipv6 conn basarisiz: 0x%X\n", status);
+		}
+			
+		node = node->Next;
+			
+		}
+
+	/*
 	//ipv4 connect 
 	while (node)
 	{
@@ -244,6 +274,7 @@ void StartSaplayici()
 		else {
 			DbgPrint("ipv4 conn basarisiz: 0x%X\n", status);
 		}
+		
 
 		node = node->Next;
 	}
@@ -263,6 +294,7 @@ void StartSaplayici()
 		}
 		node = node->Next;
 	}
+*/
 
 	g_IsActive = TRUE;
 }
