@@ -102,7 +102,7 @@ Sistemi kalıcı olarak değiştirmek istemeyenler için:
 2. Sorun Gider → Gelişmiş Seçenekler → Başlangıç Ayarları
 3. **"Sürücü imza zorlamasını devre dışı bırak"** seçeneğini seç
 
-> Bu yöntem yalnızca o oturum için geçerlidir.
+> Bu yöntem yalnızca o oturum için geçerlidir, yeniden başlatınca eski haline döner.
 
 ---
 
