@@ -111,7 +111,7 @@ Sistemi kalıcı olarak değiştirmek istemeyenler için:
 Derleme sonrası elde edilen `.sys` dosyasının tam yolunu kopyala ve CMD'yi **Yönetici** olarak çalıştır:
 
 ```cmd
-sc create SaplayiciDemo binPath= "C:\tam\yol\SaplayiciDemo.sys" type= kernel start= demand
+sc create SaplayiciDemo BinPath= "C:\tam\yol\SaplayiciDemo.sys" start= demand type= kernel
 ```
 
 Mevcut durum için:
