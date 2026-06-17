@@ -127,8 +127,102 @@ NTSTATUS AddFilterIPv4_AppId(FWP_BYTE_BLOB* appId)
 	return status;
 }
 
+
 /*
-ipv6 filtre ekleme 
+
+Recv ipv4
+*/
+NTSTATUS AddFilterIPv4_Recv(FWP_BYTE_BLOB* appId)
+{
+
+	FWPM_FILTER0 filter = { 0 };
+	FWPM_FILTER_CONDITION0 condition = { 0 };
+	UINT64 filterId = 0;
+
+	filter.displayData.name = L"APP BLOCK V4 RECV";
+	filter.layerKey = FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4;
+	filter.subLayerKey = SAPLAYICI_SUBLAYER_GUID;
+
+	condition.fieldKey = FWPM_CONDITION_ALE_APP_ID;
+	condition.matchType = FWP_MATCH_EQUAL;
+	condition.conditionValue.type = FWP_BYTE_BLOB_TYPE;
+	condition.conditionValue.byteBlob = appId;
+
+	filter.numFilterConditions = 1;
+	filter.filterCondition = &condition;
+
+	filter.action.type = FWP_ACTION_BLOCK;
+
+	filter.weight.type = FWP_UINT8;
+	filter.weight.uint8 = 0xF;
+
+	NTSTATUS status = FwpmFilterAdd0(
+		g_EngineHandle,
+		&filter,
+		NULL,
+		&filterId
+	);
+
+	if (NT_SUCCESS(status))
+	{
+		if (g_FilterCount < MAX_FILTERS)
+			g_FilterIds[g_FilterCount++] = filterId;
+	}
+
+	return status;
+
+
+}
+
+/*
+
+İPV4 FLOW ESTABLED
+
+*/
+NTSTATUS AddFilterIPv4Flow(FWP_BYTE_BLOB* appId)
+{
+
+	FWPM_FILTER0 filter = { 0 };
+	FWPM_FILTER_CONDITION0 condition = { 0 };
+	UINT64 filterId = 0;
+
+	filter.displayData.name = L"APP BLOCK V4 ESTABLISHED";
+	filter.layerKey = FWPM_LAYER_ALE_FLOW_ESTABLISHED_V4;
+	filter.subLayerKey = SAPLAYICI_SUBLAYER_GUID;
+
+	condition.fieldKey = FWPM_CONDITION_ALE_APP_ID;
+	condition.matchType = FWP_MATCH_EQUAL;
+	condition.conditionValue.type = FWP_BYTE_BLOB_TYPE;
+	condition.conditionValue.byteBlob = appId;
+
+	filter.numFilterConditions = 1;
+	filter.filterCondition = &condition;
+
+	filter.action.type = FWP_ACTION_BLOCK;
+
+	filter.weight.type = FWP_UINT8;
+	filter.weight.uint8 = 0xF;
+
+	NTSTATUS status = FwpmFilterAdd0(
+		g_EngineHandle,
+		&filter,
+		NULL,
+		&filterId
+	);
+
+	if (NT_SUCCESS(status))
+	{
+		if (g_FilterCount < MAX_FILTERS)
+			g_FilterIds[g_FilterCount++] = filterId;
+	}
+
+	return status;
+
+
+}
+
+/*
+ipv6 filtreleri
 connect
 condition tipi byte blob 
 filtre ağırlıgı 15 max
@@ -175,16 +269,104 @@ NTSTATUS AddfilteripV6_AppId(FWP_BYTE_BLOB* appId)
 
 }
 
+//İPv6 Recv
+NTSTATUS AddFilterIPv6_Recv(FWP_BYTE_BLOB* appId)
+{
+
+	FWPM_FILTER0 filter = { 0 };
+	FWPM_FILTER_CONDITION0 condition = { 0 };
+	UINT64 filterId = 0;
+
+	filter.displayData.name = L"APP BLOCK V6 RECV";
+	filter.layerKey = FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6;
+	filter.subLayerKey = SAPLAYICI_SUBLAYER_GUID;
+
+	condition.fieldKey = FWPM_CONDITION_ALE_APP_ID;
+	condition.matchType = FWP_MATCH_EQUAL;
+	condition.conditionValue.type = FWP_BYTE_BLOB_TYPE;
+	condition.conditionValue.byteBlob = appId;
+
+	filter.numFilterConditions = 1;
+	filter.filterCondition = &condition;
+
+	filter.action.type = FWP_ACTION_BLOCK;
+
+	filter.weight.type = FWP_UINT8;
+	filter.weight.uint8 = 0xF;
+
+	NTSTATUS status = FwpmFilterAdd0(
+		g_EngineHandle,
+		&filter,
+		NULL,
+		&filterId
+	);
+
+	if (NT_SUCCESS(status))
+	{
+		if (g_FilterCount < MAX_FILTERS)
+			g_FilterIds[g_FilterCount++] = filterId;
+	}
+
+	return status;
+
+
+}
 
 /*
-Var ALE_AUTH_CONNECT (V4 + V6)
+ipv6 FLOW
+*/
 
-Eklenecek ALE_AUTH_RECV_ACCEPT (V4 + V6)
+NTSTATUS AddFilterIPv6Flow(FWP_BYTE_BLOB* appId)
+{
 
-Eklenecek ALE_FLOW_ESTABLISHED (V4 + V6)
+	FWPM_FILTER0 filter = { 0 };
+	FWPM_FILTER_CONDITION0 condition = { 0 };
+	UINT64 filterId = 0;
 
-Eklenebilir ALE_RESOURCE_ASSIGNMENT
+	filter.displayData.name = L"APP BLOCK V6 ESTABLISHED";
+	filter.layerKey = FWPM_LAYER_ALE_FLOW_ESTABLISHED_V6;
+	filter.subLayerKey = SAPLAYICI_SUBLAYER_GUID;
 
+	condition.fieldKey = FWPM_CONDITION_ALE_APP_ID;
+	condition.matchType = FWP_MATCH_EQUAL;
+	condition.conditionValue.type = FWP_BYTE_BLOB_TYPE;
+	condition.conditionValue.byteBlob = appId;
+
+	filter.numFilterConditions = 1;
+	filter.filterCondition = &condition;
+
+	filter.action.type = FWP_ACTION_BLOCK;
+
+	filter.weight.type = FWP_UINT8;
+	filter.weight.uint8 = 0xF;
+
+	NTSTATUS status = FwpmFilterAdd0(
+		g_EngineHandle,
+		&filter,
+		NULL,
+		&filterId
+	);
+
+	if (NT_SUCCESS(status))
+	{
+		if (g_FilterCount < MAX_FILTERS)
+			g_FilterIds[g_FilterCount++] = filterId;
+	}
+
+	return status;
+
+
+}
+
+/*
+Katmanlar
+ALE_AUTH_CONNECT (V4 + V6) var
+
+ALE_AUTH_RECV_ACCEPT (V4 + V6) var
+
+ALE_FLOW_ESTABLISHED (V4 + V6) var
+
+Eklenebilir ALE_RESOURCE_ASSIGNMENT 
 */
 
 
@@ -233,11 +415,12 @@ void StartSaplayici()
 
 	PAPPID_NODE node = g_AppIdList;
 
-
+	NTSTATUS status;
 	while (node)
 		{
 			//ipv4conn
-			NTSTATUS status = AddFilterIPv4_AppId(node->AppIdBlob);
+			
+			status = AddFilterIPv4_AppId(node->AppIdBlob);
 
 			if (NT_SUCCESS(status))
 			{
@@ -246,9 +429,31 @@ void StartSaplayici()
 			else {
 			DbgPrint("ipv4 conn basarisiz: 0x%X\n", status);
 			}
+
+			status = AddFilterIPv4_Recv(node->AppIdBlob);
+
+			if(NT_SUCCESS(status)){
+				DbgPrint("ipv4 Recv eklendi\n");
+
+			}
+			else{
+			DbgPrint("ipv4 Recv basarisiz: 0x%X\n", status);
+			}
 			
+			status = AddFilterIPv4Flow(node->AppIdBlob);
+			
+			if(NT_SUCCESS(status)){
+				DbgPrint("ipv4 Flow eklendi\n");
+
+			}
+			else{
+			DbgPrint("ipv4 Flow basarisiz: 0x%X\n", status);
+			}
+				
+
+				
 			//ipv6conn 
-			NTSTATUS status = AddfilteripV6_AppId(node->AppIdBlob);
+			status = AddfilteripV6_AppId(node->AppIdBlob);
 
 			if (NT_SUCCESS(status)) {
 
@@ -257,6 +462,27 @@ void StartSaplayici()
 			else {
 			DbgPrint("ipv6 conn basarisiz: 0x%X\n", status);
 		}
+			status = AddFilterIPv6_Recv(node->AppIdBlob);
+
+			if(NT_SUCCESS(status)){
+				DbgPrint("ipv6 Recv eklendi\n");
+
+			}
+			else{
+			DbgPrint("ipv6 Recv basarisiz: 0x%X\n", status);
+			}
+			
+			status = AddFilterIPv6Flow(node->AppIdBlob);
+			
+			if(NT_SUCCESS(status)){
+				DbgPrint("ipv6 Flow eklendi\n");
+
+			}
+			else{
+			DbgPrint("ipv6 Flow basarisiz: 0x%X\n", status);
+			}
+
+			
 			
 		node = node->Next;
 			
