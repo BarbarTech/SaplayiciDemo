@@ -7,7 +7,10 @@ Windows Filtering Platform (WFP) kullanarak uygulama bazlı internet erişimini 
 ## Özellikler
 
 - Uygulama bazlı internet engelleme (AppID ile)
-- IPv4 ve IPv6 Connect katmanı desteği
+- IPv4 ve IPv6 WFP ALE katmanı desteği
+  - ALE_AUTH_CONNECT
+  - ALE_AUTH_RECV_ACCEPT
+  - ALE_FLOW_ESTABLISHED
 - IOCTL üzerinden başlatma / durdurma
 - Maksimum 1024 eş zamanlı filtre
 
